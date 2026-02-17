@@ -13,6 +13,7 @@ public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private boolean emprestado;
     @jakarta.validation.constraints.NotNull(message = "O livro não pode ser registrado sem um ISBN" )
     private Long isbn;
     @jakarta.validation.constraints.NotBlank(message = "Por favor insira um nome")

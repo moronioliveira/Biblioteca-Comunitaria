@@ -14,9 +14,11 @@ import lombok.Setter;
 @Table(name = "adress")
 public class Endereco {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToOne(optional = false)
     @JoinColumn(name = "usuario_id", nullable = false)
-
     private Usuario usuario;
     @Column (name = "rua")
     private String rua;

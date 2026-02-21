@@ -4,8 +4,6 @@ import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.entity.Empresti
 import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.entity.Livro;
 import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.entity.Usuario;
 import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.repository.EmprestimoRepository;
-import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.repository.LivroRepository;
-import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,21 +14,19 @@ import java.time.LocalDateTime;
 @Service
 public class EmprestimoService {
 
-    private final LivroRepository livroRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final LivroService livroService;
+    private final UsuarioService usuarioService;
     private final EmprestimoRepository emprestimoRepository;
 
     @Transactional
     public Emprestimo realizarEmprestimo(Long livroId, Long usuarioId){
-       Livro livroDoBanco = livroRepository.findById(livroId)
-               .orElseThrow();
-        if (livroDoBanco.isEmprestado()){
+        Livro livroDoBanco = livroService.buscarPorId(livroId);
+        if (livroDoBanco.getEmprestado()){
             throw new RuntimeException("Este livro já está emprestado");
         }
         livroDoBanco.setEmprestado(true);
 
-        Usuario usuarioDoBanco = usuarioRepository.findById(usuarioId)
-                .orElseThrow();
+        Usuario usuarioDoBanco = usuarioService.buscarPorId(usuarioId);
         Emprestimo novoEmprestimo = new Emprestimo();
         novoEmprestimo.setLivro(livroDoBanco);
         novoEmprestimo.setUsuario(usuarioDoBanco);

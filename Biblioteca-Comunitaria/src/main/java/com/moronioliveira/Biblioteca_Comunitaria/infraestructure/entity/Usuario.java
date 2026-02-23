@@ -11,17 +11,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name ="tb_users")
+@Table(name = "tb_users")
 
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @jakarta.validation.constraints.NotBlank(message = "Esse campo não pode estar em branco" )
+    @jakarta.validation.constraints.NotBlank(message = "Esse campo não pode estar em branco")
     private String name;
-    @jakarta.validation.constraints.NotBlank(message =  "Por favor insira um e-mail" )
+    @jakarta.validation.constraints.NotBlank(message = "Por favor insira um e-mail")
     private String email;
-    @jakarta.validation.constraints.NotNull(message = "Por favor insira um numero de celular" )
+    @jakarta.validation.constraints.NotNull(message = "Por favor insira um numero de celular")
     @Column(name = "numeroCelular", length = 13)
     private Long numeroCelular;
 }

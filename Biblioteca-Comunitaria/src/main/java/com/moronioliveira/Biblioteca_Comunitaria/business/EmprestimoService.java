@@ -19,9 +19,9 @@ public class EmprestimoService {
     private final EmprestimoRepository emprestimoRepository;
 
     @Transactional
-    public Emprestimo realizarEmprestimo(Long livroId, Long usuarioId){
+    public Emprestimo realizarEmprestimo(Long livroId, Long usuarioId) {
         Livro livroDoBanco = livroService.buscarPorId(livroId);
-        if (livroDoBanco.getEmprestado()){
+        if (livroDoBanco.getEmprestado()) {
             throw new RuntimeException("Este livro já está emprestado");
         }
         livroDoBanco.setEmprestado(true);

@@ -18,21 +18,25 @@ public class EmprestimoService {
     private final UsuarioService usuarioService;
     private final EmprestimoRepository emprestimoRepository;
 
+    //Create
     @Transactional
-    public Emprestimo realizarEmprestimo(Long livroId, Long usuarioId) {
-        Livro livroDoBanco = livroService.buscarPorId(livroId);
+    public Emprestimo realizarEmprestimo(Emprestimo emprestimo) {
+
+        Livro livroDoBanco = livroService.buscarPorId(emprestimo.getLivro().getId());
+
         if (livroDoBanco.getEmprestado()) {
             throw new RuntimeException("Este livro já está emprestado");
         }
         livroDoBanco.setEmprestado(true);
+        livroService.atualizar(livroDoBanco.getId(), livroDoBanco);
 
-        Usuario usuarioDoBanco = usuarioService.buscarPorId(usuarioId);
-        Emprestimo novoEmprestimo = new Emprestimo();
-        novoEmprestimo.setLivro(livroDoBanco);
-        novoEmprestimo.setUsuario(usuarioDoBanco);
-        novoEmprestimo.setDataEmprestimo(LocalDateTime.now());
+        Usuario usuarioDoBanco = usuarioService.buscarPorId(emprestimo.getUsuario().getId());
 
-        return emprestimoRepository.save(novoEmprestimo);
+        emprestimo.setLivro(livroDoBanco);
+        emprestimo.setUsuario(usuarioDoBanco);
+        emprestimo.setDataEmprestimo(LocalDateTime.now());
+
+        return emprestimoRepository.save(emprestimo);
     }
 
 }

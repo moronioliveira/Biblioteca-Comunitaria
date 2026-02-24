@@ -17,26 +17,31 @@ import java.util.List;
 
 public class LivroController {
     private final LivroService livroService;
-    private final LivroRepository livroRepository;
 
     @PostMapping
-    public ResponseEntity<Livro> criarLivro(@Valid @RequestBody LivroDTO dados) {
+    public ResponseEntity<Livro> criarLivro(
+            @Valid @RequestBody LivroDTO dados) {
 
+        //Objeto
         Livro livroCompleto = new Livro();
+
+        //Settar os atributos
         livroCompleto.setAutor(dados.getAutor());
         livroCompleto.setName(dados.getName());
         livroCompleto.setGenero(dados.getGenero());
         livroCompleto.setDataDevolucao(dados.getDataDevolucao());
         livroCompleto.setIsbn(dados.getIsbn());
 
+        //Chamando a service e o metodo de la
         Livro livroCriado = livroService.criarLivro
                 (livroCompleto);
+        //Levando a resposta
         return ResponseEntity.ok(livroCriado);
     }
 
     @GetMapping
     public ResponseEntity<List<Livro>> listar() {
-        List<Livro> livros = livroRepository.findAll();
+        List<Livro> livros = livroService.buscarTodos();
         return ResponseEntity.ok(livros);
     }
 

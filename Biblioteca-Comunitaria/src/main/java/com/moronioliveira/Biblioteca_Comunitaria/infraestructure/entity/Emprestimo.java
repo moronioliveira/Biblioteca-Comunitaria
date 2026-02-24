@@ -26,5 +26,5 @@ public class Emprestimo {
     @JoinColumn(nullable = false)
     private Livro livro;
     private LocalDateTime dataEmprestimo;
-    private LocalDateTime dataDevoluçao;
+    private String dataDevolucao;
 }

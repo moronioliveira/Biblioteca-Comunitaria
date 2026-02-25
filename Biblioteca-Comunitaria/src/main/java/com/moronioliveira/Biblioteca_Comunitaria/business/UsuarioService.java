@@ -5,14 +5,24 @@ import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.repository.Usua
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
 
-    public Usuario buscarPorId(Long usuarioId){
-        Usuario usuarioDoBanco = usuarioRepository.findById(usuarioId)
-                .orElseThrow();
-        return usuarioDoBanco;
+    public Usuario criarUsuario(Usuario usuario){
+        Optional<Usuario> usuarioDoBanco = usuarioRepository.findByEmail(usuario.getEmail());
+            if (usuarioDoBanco.isPresent()){
+                throw new RuntimeException("Esse usuario já existe!!!");
+            }
+        return usuarioRepository.save(usuario);
+    }
+    public Usuario buscarUsuario(Long usuarioId){
+        Usuario buscandoUsuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Esse usuario já existe"));
+
+        return usuarioRepository.save(buscandoUsuario);
     }
 }

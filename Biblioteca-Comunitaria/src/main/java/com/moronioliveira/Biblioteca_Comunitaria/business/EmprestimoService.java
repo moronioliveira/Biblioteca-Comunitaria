@@ -28,9 +28,10 @@ public class EmprestimoService {
             throw new RuntimeException("Este livro já está emprestado");
         }
         livroDoBanco.setEmprestado(true);
+
         livroService.atualizar(livroDoBanco.getId(), livroDoBanco);
 
-        Usuario usuarioDoBanco = usuarioService.buscarPorId(emprestimo.getUsuario().getId());
+        Usuario usuarioDoBanco = usuarioService.buscarUsuario(emprestimo.getUsuario().getId());
 
         emprestimo.setLivro(livroDoBanco);
         emprestimo.setUsuario(usuarioDoBanco);

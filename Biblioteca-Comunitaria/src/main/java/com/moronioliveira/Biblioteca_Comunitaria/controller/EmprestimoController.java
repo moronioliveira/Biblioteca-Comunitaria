@@ -31,7 +31,7 @@ public class EmprestimoController {
        emprestimoCriado.setDataDevolucao(dados.getDataDevolucao());
 
        Emprestimo novoEmprestimo = emprestimoService.realizarEmprestimo(emprestimoCriado);
-
+    
        return ResponseEntity.ok(novoEmprestimo);
     }
 }

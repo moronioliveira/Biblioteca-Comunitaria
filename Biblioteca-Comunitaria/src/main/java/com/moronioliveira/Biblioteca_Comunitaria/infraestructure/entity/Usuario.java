@@ -1,6 +1,7 @@
 package com.moronioliveira.Biblioteca_Comunitaria.infraestructure.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,7 @@ public class Usuario {
     @jakarta.validation.constraints.NotNull(message = "Por favor insira um numero de celular")
     @Column(name = "numeroCelular", length = 13)
     private Long numeroCelular;
+    @NotBlank(message = "Digite uma senha valida")
+    @Column(name = "senha", length = 10)
+    private String senha;
 }

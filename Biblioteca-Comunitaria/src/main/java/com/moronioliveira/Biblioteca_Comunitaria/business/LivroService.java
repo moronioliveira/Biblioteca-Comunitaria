@@ -38,11 +38,11 @@ public class LivroService {
         livroRepository.deleteById(livroId);
     }
 
-    public Livro atualizar(Long id, Livro livroAtualizado) {
-        Livro livroExistente = livroRepository.findById(id)
+    public Livro atualizar(Long livroId, Livro livroAtualizado) {
+        Livro livroExistente = livroRepository.findById(livroId)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado!!!"));
 
-        livroExistente.setId(id);
+
         livroExistente.setName(livroAtualizado.getName());
         livroExistente.setIsbn(livroAtualizado.getIsbn());
         livroExistente.setAutor(livroAtualizado.getAutor());

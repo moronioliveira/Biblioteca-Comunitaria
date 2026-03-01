@@ -37,4 +37,16 @@ public class UsuarioController {
         List<Usuario> usuarios = usuarioService.buscarTodos();
         return ResponseEntity.ok(usuarios);
     }
+    @DeleteMapping("/{usuarioId}")
+    public ResponseEntity<Void> deletarUsuario(@PathVariable Long usuarioId){
+        usuarioService.deletar(usuarioId);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/{usuarioId}")
+    public ResponseEntity<Usuario> atualizar(
+            @PathVariable Long usuarioId, @RequestBody Usuario usuario){
+        Usuario atualizando  = usuarioService.atualizarUsuario(usuarioId, usuario );
+
+        return ResponseEntity.ok(atualizando);
+    }
 }

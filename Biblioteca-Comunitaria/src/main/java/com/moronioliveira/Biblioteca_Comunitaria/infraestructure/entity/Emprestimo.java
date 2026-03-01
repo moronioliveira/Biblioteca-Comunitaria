@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,5 +26,5 @@ public class Emprestimo {
     @JoinColumn(nullable = false)
     private Livro livro;
     private LocalDateTime dataEmprestimo;
-    private LocalDateTime dataDevoluçao;
+    private String dataDevolucao;
 }

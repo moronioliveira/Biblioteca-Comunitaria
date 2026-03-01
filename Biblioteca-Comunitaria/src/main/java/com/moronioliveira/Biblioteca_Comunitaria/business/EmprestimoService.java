@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,21 +20,34 @@ public class EmprestimoService {
     private final UsuarioService usuarioService;
     private final EmprestimoRepository emprestimoRepository;
 
+    //Create
     @Transactional
-    public Emprestimo realizarEmprestimo(Long livroId, Long usuarioId){
-        Livro livroDoBanco = livroService.buscarPorId(livroId);
-        if (livroDoBanco.getEmprestado()){
+    public Emprestimo realizarEmprestimo(Emprestimo emprestimo) {
+
+        Livro livroDoBanco = livroService.buscarPorId(emprestimo.getLivro().getId());
+
+        if (livroDoBanco.getEmprestado()) {
             throw new RuntimeException("Este livro já está emprestado");
         }
         livroDoBanco.setEmprestado(true);
 
-        Usuario usuarioDoBanco = usuarioService.buscarPorId(usuarioId);
-        Emprestimo novoEmprestimo = new Emprestimo();
-        novoEmprestimo.setLivro(livroDoBanco);
-        novoEmprestimo.setUsuario(usuarioDoBanco);
-        novoEmprestimo.setDataEmprestimo(LocalDateTime.now());
+        livroService.atualizar(livroDoBanco.getId(), livroDoBanco);
 
-        return emprestimoRepository.save(novoEmprestimo);
+        Usuario usuarioDoBanco = usuarioService.buscarUsuario(emprestimo.getUsuario().getId());
+
+        emprestimo.setLivro(livroDoBanco);
+        emprestimo.setUsuario(usuarioDoBanco);
+        emprestimo.setDataEmprestimo(LocalDateTime.now());
+
+        return emprestimoRepository.save(emprestimo);
+
+    }
+    public List<Emprestimo> buscarEmprestimos(){
+        return emprestimoRepository.findAll();
+    }
+
+    public void deletar(Long emprestimoId){
+        emprestimoRepository.deleteById(emprestimoId);
     }
 
 }

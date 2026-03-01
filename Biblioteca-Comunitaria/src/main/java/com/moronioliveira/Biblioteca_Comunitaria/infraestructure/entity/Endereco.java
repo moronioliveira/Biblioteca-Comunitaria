@@ -20,16 +20,16 @@ public class Endereco {
     @OneToOne(optional = false)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
-    @Column (name = "rua")
+    @Column(name = "rua")
     private String rua;
-    @Column (name = "numero", length = 4)
+    @Column(name = "numero", length = 4)
     private Long numero;
-    @Column (name = "bairro")
+    @Column(name = "bairro")
     private String bairro;
-    @Column (name = "cidade")
+    @Column(name = "cidade")
     private String cidade;
-    @Column (name = "estado", length = 3)
+    @Column(name = "estado", length = 3)
     private String estado;
-    @Column (name = "cep", length = 9)
+    @Column(name = "cep", length = 9)
     private String cep;
 }

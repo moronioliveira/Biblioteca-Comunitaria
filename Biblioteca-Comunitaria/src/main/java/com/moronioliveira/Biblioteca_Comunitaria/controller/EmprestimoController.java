@@ -3,14 +3,12 @@ package com.moronioliveira.Biblioteca_Comunitaria.controller;
 import com.moronioliveira.Biblioteca_Comunitaria.business.EmprestimoService;
 import com.moronioliveira.Biblioteca_Comunitaria.controller.dtos.EmprestimoDTO;
 import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.entity.Emprestimo;
-import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.entity.Usuario;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,5 +31,16 @@ public class EmprestimoController {
        Emprestimo novoEmprestimo = emprestimoService.realizarEmprestimo(emprestimoCriado);
     
        return ResponseEntity.ok(novoEmprestimo);
+    }
+    @GetMapping
+    public ResponseEntity<List<Emprestimo>> listarEmprestimos(){
+        List<Emprestimo> listaEmprestimos = emprestimoService.buscarEmprestimos();
+        return ResponseEntity.ok(listaEmprestimos);
+    }
+
+    @DeleteMapping("/{emprestimoId}")
+    public ResponseEntity<Void> deletar(@PathVariable Long emprestimoId){
+        emprestimoService.deletar(emprestimoId);
+        return ResponseEntity.noContent().build();
     }
 }

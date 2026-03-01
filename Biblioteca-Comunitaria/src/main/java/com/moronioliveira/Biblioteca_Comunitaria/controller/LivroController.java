@@ -46,14 +46,14 @@ public class LivroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        livroService.deletar(id);
+    public ResponseEntity<Void> deletar(@PathVariable Long livroId) {
+        livroService.deletar(livroId);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Livro> atualizar(@PathVariable Long id, @RequestBody Livro livro){
-        Livro atualizado =  livroService.atualizar(id, livro);
+    @PutMapping("/{livroId}")
+    public ResponseEntity<Livro> atualizar(@PathVariable Long livroId, @RequestBody Livro livro){
+        Livro atualizado =  livroService.atualizar(livroId, livro);
         return ResponseEntity.ok(atualizado);
     }
 }

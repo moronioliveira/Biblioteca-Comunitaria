@@ -5,6 +5,7 @@ import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.repository.Usua
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -21,8 +22,12 @@ public class UsuarioService {
     }
     public Usuario buscarUsuario(Long usuarioId){
         Usuario buscandoUsuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(() -> new RuntimeException("Esse usuario já existe"));
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado com o id: " + usuarioId));
 
         return usuarioRepository.save(buscandoUsuario);
+    }
+
+    public List<Usuario> buscarTodos(){
+        return usuarioRepository.findAll();
     }
 }

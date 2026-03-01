@@ -6,10 +6,9 @@ import com.moronioliveira.Biblioteca_Comunitaria.infraestructure.entity.Usuario;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,5 +31,10 @@ public class UsuarioController {
         Usuario entryUsuario = usuarioService.criarUsuario(newUsuario);
 
         return ResponseEntity.ok(entryUsuario);
+    }
+    @GetMapping
+    public ResponseEntity<List<Usuario>> listarUsuarios(){
+        List<Usuario> usuarios = usuarioService.buscarTodos();
+        return ResponseEntity.ok(usuarios);
     }
 }

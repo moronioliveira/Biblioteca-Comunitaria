@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -38,6 +40,14 @@ public class EmprestimoService {
         emprestimo.setDataEmprestimo(LocalDateTime.now());
 
         return emprestimoRepository.save(emprestimo);
+
+    }
+    public List<Emprestimo> buscarEmprestimos(){
+        return emprestimoRepository.findAll();
+    }
+
+    public void deletar(Long emprestimoId){
+        emprestimoRepository.deleteById(emprestimoId);
     }
 
 }

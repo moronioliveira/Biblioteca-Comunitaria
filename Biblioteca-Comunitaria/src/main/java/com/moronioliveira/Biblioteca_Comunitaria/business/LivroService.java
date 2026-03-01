@@ -34,8 +34,8 @@ public class LivroService {
         return livroRepository.findAll();
     }
 
-    public void deletar(Long id) {
-        livroRepository.deleteById(id);
+    public void deletar(Long livroId) {
+        livroRepository.deleteById(livroId);
     }
 
     public Livro atualizar(Long id, Livro livroAtualizado) {
